@@ -1,4 +1,4 @@
-name: Xcode build
+name: docbuild
 on: 
   push:
     branches: [ main ]
