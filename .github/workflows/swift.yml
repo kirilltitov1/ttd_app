@@ -1,0 +1,38 @@
+name: Swift
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v3
+#     - name: Build
+#       run: |
+#            xcodebuild clean build -workspace "EventTracker/EventTracker.xcworkspace" -scheme "EventTracker" -destination "platform=iOS Simulator,name=iPhone 13 Pro,OS=latest" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO    
+#     - name: Test
+#       run: |
+#            xcodebuild clean test -workspace "EventTracker/EventTracker.xcworkspace" -scheme "EventTracker" -destination "platform=iOS Simulator,name=iPhone 13 Pro,OS=latest" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+  documentation:
+      runs-on: ubuntu-latest
+
+      steps:
+        - uses: actions/checkout@v1
+        - name: Generate Documentation
+          uses: SwiftDocOrg/swift-doc@master
+          with:
+            inputs: "EventTracker/Favorites"
+            module-name: FavoritesInteractor.swift
+            output: "Documentation"
+        - name: Upload Documentation to Wiki
+          uses: SwiftDocOrg/github-wiki-publish-action@v1
+          with:
+            path: "Documentation"
+          env:
+            GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
