@@ -1,4 +1,4 @@
-name: Pull request
+name: Xcode build
 on: 
   push:
     branches: [ main, develop ]
