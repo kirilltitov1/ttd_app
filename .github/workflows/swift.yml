@@ -1,6 +1,5 @@
-name: Swift
-
-on:
+name: Pull request
+on: 
   push:
     branches: [ main, develop ]
   pull_request:
@@ -8,31 +7,20 @@ on:
 
 jobs:
   build:
-
     runs-on: self-hosted
-
+    timeout-minutes: 15
     steps:
-    - uses: actions/checkout@v3
-#     - name: Build
-#       run: |
-#            xcodebuild clean build -workspace "Application/Application.xcworkspace" -scheme "Application" -destination "platform=iOS Simulator,name=iPhone 13 Pro,OS=latest" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO    
-#     - name: Test
-#       run: |
-#            xcodebuild clean test -workspace "Application/Application.xcworkspace" -scheme "Application" -destination "platform=iOS Simulator,name=iPhone 13 Pro,OS=latest" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
-#   documentation:
-#       runs-on: ubuntu-latest
-
-#       steps:
-#         - uses: actions/checkout@v1
-#         - name: Generate Documentation
-#           uses: SwiftDocOrg/swift-doc@master
-#           with:
-#             inputs: "Application/Favorites"
-#             module-name: ApplicationInteractor.swift
-#             output: "Documentation"
-#         - name: Upload Documentation to Wiki
-#           uses: SwiftDocOrg/github-wiki-publish-action@v1
-#           with:
-#             path: "Documentation"
-#           env:
-#             GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+      - name: Cancel previous jobs
+        uses: styfle/cancel-workflow-action@0.6.0
+        with:
+          access_token: ${{ github.token }}
+          
+      - name: Git - Checkout
+        uses: actions/checkout@v2.3.4
+        with:
+          ref: ${{ github.ref }}
+        
+      - name: clean build
+        run: |
+          cd Application/
+          xcodebuild clean build -workspace "Application.xcworkspace" -scheme "Application" -destination "platform=iOS Simulator,name=iPhone 13 Pro,OS=latest" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
