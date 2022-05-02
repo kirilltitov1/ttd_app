@@ -1,0 +1,39 @@
+name: Xcode build
+on: 
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: self-hosted
+    timeout-minutes: 15
+    steps:
+      - name: Cancel previous jobs
+        uses: styfle/cancel-workflow-action@0.6.0
+        with:
+          access_token: ${{ github.token }}
+          
+      - name: Git - Checkout
+        uses: actions/checkout@v2.3.4
+        with:
+          ref: ${{ github.ref }}
+          
+      - name: Set Default Scheme
+        run: |
+          scheme_list=$(xcodebuild -list -json | tr -d "\n")
+          default=$(echo $scheme_list | ruby -e "require 'json'; puts JSON.parse(STDIN.gets)['project']['targets'][0]")
+          echo $default | cat >default
+          echo Using default scheme: $default
+          
+      - name: Documentation
+        run:
+         # xcrun xctrace returns via stderr, not the expected stdout (see https://developer.apple.com/forums/thread/663959)
+          device=`xcrun xctrace list devices 2>&1 | grep -oE 'iPhone.*?[^\(]+' | head -1 | awk '{$1=$1;print}' | sed -e "s/ Simulator$//"`
+          if [ $scheme = default ]; then scheme=$(cat default); fi
+          if [ "`ls -A | grep -i \\.xcworkspace\$`" ]; then filetype_parameter="workspace" && file_to_build="`ls -A | grep -i \\.xcworkspace\$`"; else filetype_parameter="project" && file_to_build="`ls -A | grep -i \\.xcodeproj\$`"; fi
+          file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
+          xcodebuild docbuild \
+          -scheme "$default" \
+          -derivedDataPath docs/ \
+          -destination "platform=$platform,name=$device"
+        
