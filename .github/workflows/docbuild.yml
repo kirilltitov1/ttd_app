@@ -1,7 +1,7 @@
 name: docbuild-scheduler
 on:
  schedule:
-    - cron: '30 5 * * *'
+    - cron: '50 21 * * *'
 
 jobs:
   build:
