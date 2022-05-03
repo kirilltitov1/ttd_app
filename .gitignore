@@ -4,6 +4,7 @@
 Swift
 
 .DS_Store
+.derivedData
 
 # Xcode
 #
