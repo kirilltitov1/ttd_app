@@ -24,8 +24,8 @@ jobs:
 #         # You may pin to the exact commit or the version.
 #         # uses: peter-evans/rebase@08cedbbd4eabcd913bf091844614eceddaea4a5d
 #         uses: peter-evans/rebase@v2.0.0
-      - name: GitHub Repo Sync
-        uses: repo-sync/github-sync@v2.3.0
+      - name: Git Repo Sync
+        run: git pull
 
           
       - name: Set Default Scheme
