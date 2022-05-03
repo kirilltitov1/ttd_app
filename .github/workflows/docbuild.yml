@@ -37,12 +37,12 @@ jobs:
           if [ $scheme = default ]; then scheme=$(cat default); fi
           if [ "`ls -A | grep -i \\.xcworkspace\$`" ]; then filetype_parameter="workspace" && file_to_build="`ls -A | grep -i \\.xcworkspace\$`"; else filetype_parameter="project" && file_to_build="`ls -A | grep -i \\.xcodeproj\$`"; fi
           file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
-          xcodebuild docbuild -scheme "$scheme" -derivedDataPath derivedData -destination "platform=$platform,name=$device"
+          xcodebuild docbuild -scheme "$scheme" -derivedDataPath DerivedData -destination "platform=$platform,name=$device"
           
       - name: Documentation - Create DocC
         run: |
          $(xcrun --find docc) process-archive \
-         transform-for-static-hosting derivedData/Build/Products/Debug-iphonesimulator/Application.doccarchive \
+         transform-for-static-hosting DerivedData/Build/Products/Debug-iphonesimulator/Application.doccarchive \
          --output-path docs \
          --hosting-base-path ttd_app
           
