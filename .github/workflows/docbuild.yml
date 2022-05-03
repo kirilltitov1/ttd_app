@@ -50,9 +50,16 @@ jobs:
         run: |
          git branch
 
-      - name: Push changes
-        uses: actions-go/push@v1
+      - name: GitHub Push
+        uses: ad-m/github-push-action@v0.6.0
         with:
-          create-commit: true
-          commit-files: docs/
-          commit-message: docbuild-scheduler
+          github_token: $\{{ secrets.GITHUB_TOKEN }}
+          # Repository name to push. Default or empty value represents current github repository (${GITHUB_REPOSITORY})
+          force: false
+          directory: docs
+# - name: Push changes
+#         uses: actions-go/push@v1
+#         with:
+#           create-commit: true
+#           commit-files: docs/
+#           commit-message: docbuild-scheduler
