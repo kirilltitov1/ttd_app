@@ -53,8 +53,6 @@ jobs:
       - name: GitHub Push
         uses: ad-m/github-push-action@v0.6.0
         with:
-          github_token: $\{{ secrets.GITHUB_TOKEN }}
-          # Repository name to push. Default or empty value represents current github repository (${GITHUB_REPOSITORY})
           force: false
           directory: docs
 # - name: Push changes
