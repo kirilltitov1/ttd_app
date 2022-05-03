@@ -49,11 +49,10 @@ jobs:
       - name: Git - branch
         run: |
          git branch
-          
-      - name: Simple commit
-        uses: zwaldowski/git-commit-action@v1
+
+      - name: Push changes
+        uses: actions-go/push@v1
         with:
-          # Directory to create commit in
-          working_directory: docs
-          # Commit message
-          commit_message: docbuild-scheduler
+          create-commit: true
+          commit-files: docs/
+          commit-message: docbuild-scheduler
