@@ -9,6 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+/// Протокол координатора
 protocol Coordinator: AnyObject {
 	var navigationController: UINavigationController { get set }
 	var parentCoordinator: Coordinator? { get set }
@@ -19,6 +20,7 @@ protocol Coordinator: AnyObject {
 	func didFinish(coordinator: Coordinator)
 }
 
+/// Имплементация базовых методов координатора
 class BaseCoordinator: Coordinator {
 
 	var childCoordinators: [Coordinator] = []

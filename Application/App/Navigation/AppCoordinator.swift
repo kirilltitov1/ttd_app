@@ -9,6 +9,7 @@ import UIKit
 import RxSwift
 import RealmSwift
 
+/// Класс координатор приложения
 final class AppCoordinator: BaseCoordinator {
 
 	var window: UIWindow!
