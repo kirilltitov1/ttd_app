@@ -27,6 +27,8 @@ jobs:
       - name: Simple commit
         uses: zwaldowski/git-commit-action@v1
         with:
+          # Directory to create commit in
+          working_directory: /docs
           # Commit message
           commit_message: docbuild-scheduler 
           
