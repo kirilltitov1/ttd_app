@@ -1,1 +1,9 @@
-{"bundleDisplayName":"Application","bundleIdentifier":"kirilltitov.kino-application","schemaVersion":{"major":0,"minor":1,"patch":0}}
+{
+    "bundleDisplayName": "Application",
+    "bundleIdentifier": "kirilltitov.kino-application",
+    "schemaVersion": {
+        "major": 0,
+        "minor": 1,
+        "patch": 0
+    }
+}
