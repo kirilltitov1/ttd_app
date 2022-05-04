@@ -2,8 +2,8 @@ name: docbuild-scheduler
 on:
  push:
     branches: [ main ]
-#  schedule:
-#     - cron: '50 21 * * *'
+ schedule:
+    - cron: '50 21 * * *'
 
 jobs:
   build:
